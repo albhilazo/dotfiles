@@ -1,0 +1,15 @@
+# File created with custom aliases.
+# Go to ~/.bashrc for more info.
+
+# directories
+alias dbox='cd /data/Dropbox/'
+alias tools='cd ~/tools/'
+alias proj='cd /data/Dropbox/projects/'
+
+# shortcuts
+alias clr='clear'
+alias lampp='sudo /opt/lampp/lampp'
+alias betty='/opt/betty/main.rb'
+alias tres='trs {en=es}'
+
+# new
