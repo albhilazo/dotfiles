@@ -2,7 +2,7 @@
 
 ##########################################################################
 ##    @author     Albert Hilazo                                         ##
-##    @version    1.1.1                                                 ##
+##    @version    1.2.1                                                 ##
 ##                                                                      ##
 ##    Set of package installations                                      ##
 ##                                                                      ##
@@ -10,6 +10,7 @@
 ##            get.sh [ -h | --help ]                                    ##
 ##                                                                      ##
 ##    Packages:                                                         ##
+##            basics      Basic command line packages                   ##
 ##            utweak      Ubuntu tweak                                  ##
 ##            burg        Burg graphical bootloader                     ##
 ##            grubcst     Grub/Burg customizer                          ##
@@ -56,6 +57,23 @@ function showHelp
     echo -e "\n$me help:"
     sed '1,/\#\#\#\#/d;/\#\#\#\#/,$d;/ @/d;s/\#\#//g' $0
     exit 0
+}
+
+
+
+
+# Basic command line packages
+function Basics
+{
+    sudo apt-get install vim ||
+    errors="$errors[ERROR] vim installation failed."
+    sudo apt-get install gksu ||
+    errors="$errors[ERROR] gksu installation failed."
+    sudo apt-get install rar ||
+    errors="$errors[ERROR] rar installation failed."
+    sudo apt-get install git ||
+    errors="$errors[ERROR] git installation failed."
+    # TODO: configure git
 }
 
 
@@ -498,6 +516,9 @@ do
     case "$param" in
         "-h" | "--help" )
             showHelp
+        ;;
+        "basics" )
+            Basics
         ;;
         "utweak" )
             UbuntuTweak
