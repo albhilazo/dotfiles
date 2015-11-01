@@ -9,10 +9,10 @@ alias .....='cd ../../../..'
 
 
 # ls
-alias ls='ls -F'
-alias ll='ls -lAh'
-alias la='ls -laAh'
-alias lt='ls -ltr'
+alias ls='ls --color=tty'
+alias ll='ls -lh'
+alias la='ls -lAh'
+alias lt='ls -ltrh'
 
 
 # git
