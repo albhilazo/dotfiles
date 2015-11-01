@@ -10,7 +10,6 @@
 ##            get.sh [ -h | --help ]                                    ##
 ##                                                                      ##
 ##    Packages:                                                         ##
-##            gshell      Gnome shell and Gnome tweak tool              ##
 ##            utweak      Ubuntu tweak                                  ##
 ##            burg        Burg graphical bootloader                     ##
 ##            grubcst     Grub/Burg customizer                          ##
@@ -57,17 +56,6 @@ function showHelp
     echo -e "\n$me help:"
     sed '1,/\#\#\#\#/d;/\#\#\#\#/,$d;/ @/d;s/\#\#//g' $0
     exit 0
-}
-
-
-
-
-function GnomeShell
-{
-    sudo add-apt-repository ppa:gnome3-team/gnome3 &&
-    sudo apt-get update
-    sudo apt-get install gnome-shell gnome-tweak-tool ||
-    errors="$errors\n[ERROR] gnome-shell installation failed."
 }
 
 
@@ -510,9 +498,6 @@ do
     case "$param" in
         "-h" | "--help" )
             showHelp
-        ;;
-        "gshell" )
-            GnomeShell
         ;;
         "utweak" )
             UbuntuTweak
