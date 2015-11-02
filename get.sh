@@ -34,7 +34,6 @@
 ##            trs         Google Translate client for the command line  ##
 ##            termnot     Terminal notifications                        ##
 ##            ncdu        Disk space usage tool                         ##
-##            gpie        Gnome Pie launcher                            ##
 ##            california  California calendar                           ##
 ##            subtext     Sublime Text 2 editor                         ##
 ##            brackets    Brackets web code editor                      ##
@@ -399,18 +398,6 @@ function ncdu
 
 
 
-function GnomePie
-{
-    # From: http://www.omgubuntu.co.uk/2015/04/gnome-pie-launcher-ubuntu-ppa
-    sudo add-apt-repository ppa:simonschneegans/testing -y &&
-    sudo apt-get update
-    sudo apt-get install gnome-pie ||
-    errors="$errors\n[ERROR] gnome-pie installation failed."
-}
-
-
-
-
 function CaliforniaCalendar
 {
     # From: http://www.omgubuntu.co.uk/2014/05/california-calendar-app-hits-yorba-daily-ppa
@@ -621,9 +608,6 @@ do
         ;;
         "ncdu" )
             ncdu
-        ;;
-        "gpie" )
-            GnomePie
         ;;
         "california" )
             CaliforniaCalendar
