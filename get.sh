@@ -9,11 +9,13 @@
 ##    Syntax: get.sh <packages>                                         ##
 ##            get.sh [ -h | --help ]                                    ##
 ##                                                                      ##
-##    Packages:                                                         ##
+##    Shell packages:                                                   ##
 ##            basics      Basic command line packages                   ##
 ##            ohmyzsh     Customizable Zsh shell interpreter            ##
 ##            extras      Restricted formats and codecs for Ubuntu      ##
 ##            java        Oracle Java 9                                 ##
+##                                                                      ##
+##    Customization:                                                    ##
 ##            burg        Burg graphical bootloader                     ##
 ##            grubcst     Grub/Burg customizer                          ##
 ##            themes      Faience, Numix and Elegance Colors themes     ##
@@ -131,6 +133,23 @@ function OracleJava
 
 
 
+# **************************************************************************** #
+# Customization
+#
+
+
+function GrubCustomizer
+{
+    # From: http://www.ubuntugeek.com/how-to-install-grub-customizer-in-ubuntu-13-04.html
+    sudo add-apt-repository ppa:danielrichter2007/grub-customizer &&
+    sudo apt-get update
+    sudo apt-get install grub-customizer ||
+    errors="$errors\n[ERROR] grub-customizer installation failed."
+}
+
+
+
+
 function Burg
 {
     # From: http://linuxg.net/how-to-install-burg-on-ubuntu-13-04-12-10-12-04-and-linux-mint-15-14-13/
@@ -150,18 +169,6 @@ function Burg
 
     echo -ne "\nPress any key to continue... "
     read -s -n 1 confirm
-}
-
-
-
-
-function GrubCustomizer
-{
-    # From: http://www.ubuntugeek.com/how-to-install-grub-customizer-in-ubuntu-13-04.html
-    sudo add-apt-repository ppa:danielrichter2007/grub-customizer &&
-    sudo apt-get update
-    sudo apt-get install grub-customizer ||
-    errors="$errors\n[ERROR] grub-customizer installation failed."
 }
 
 
