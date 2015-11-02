@@ -2,37 +2,41 @@
 
 ##########################################################################
 ##    @author     Albert Hilazo                                         ##
-##    @version    1.2.1                                                 ##
+##    @version    1.5.0                                                 ##
 ##                                                                      ##
 ##    Set of package installations                                      ##
 ##                                                                      ##
 ##    Syntax: get.sh <packages>                                         ##
 ##            get.sh [ -h | --help ]                                    ##
 ##                                                                      ##
-##    Packages:                                                         ##
+##    System packages:                                                  ##
 ##            basics      Basic command line packages                   ##
 ##            ohmyzsh     Customizable Zsh shell interpreter            ##
 ##            extras      Restricted formats and codecs for Ubuntu      ##
 ##            java        Oracle Java 9                                 ##
-##            utweak      Ubuntu tweak                                  ##
+##            msfonts     Microsoft core fonts                          ##
+##            xboxdrv     Ubuntu Xbox controller driver                 ##
+##                                                                      ##
+##    Customization:                                                    ##
+##            grubcst     Grub/Burg GUI customizer                      ##
 ##            burg        Burg graphical bootloader                     ##
-##            grubcst     Grub/Burg customizer                          ##
 ##            themes      Faience, Numix and Elegance Colors themes     ##
+##                                                                      ##
+##    Command line applications:                                        ##
+##            ncdu        Disk space usage tool                         ##
+##            tlp         TLP power management tool                     ##
+##            bumblebee   Nvidia Optimus GPU switching                  ##
+##            betty       Siri-like assistant for the command line      ##
+##            trs         Google Translate client for the command line  ##
+##            selene      Selene media encoder/converter                ##
+##                                                                      ##
+##    GUI applications:                                                 ##
 ##            aptik       Automated package backup and restore          ##
 ##            nauterm     Nautilus "Open in Terminal" plugin            ##
 ##            imgtools    Nautilus Image Tools                          ##
-##            msfonts     Microsoft core fonts                          ##
-##            jupiter     Jupiter battery manager                       ##
-##            tlp         TLP battery manager                           ##
-##            bumblebee   Nvidia Optimus GPU switching                  ##
-##            xboxdrv     Ubuntu Xbox controller driver                 ##
 ##            guake       Guake Terminal                                ##
 ##            fnlterm     Final Term terminal emulator                  ##
-##            betty       Siri-like assistant for the command line      ##
-##            trs         Google Translate client for the command line  ##
 ##            termnot     Terminal notifications                        ##
-##            ncdu        Disk space usage tool                         ##
-##            gpie        Gnome Pie launcher                            ##
 ##            california  California calendar                           ##
 ##            subtext     Sublime Text 2 editor                         ##
 ##            brackets    Brackets web code editor                      ##
@@ -43,7 +47,6 @@
 ##            nuvola      Nuvola player for google play music           ##
 ##            rhythmgm    Rhythmbox Google Play Music Plugin            ##
 ##            pudtag      Puddletag audio tag editor                    ##
-##            selene      Selene media encoder/converter                ##
 ##                                                                      ##
 ##########################################################################
 
@@ -65,8 +68,12 @@ function showHelp
 
 
 
+
+
+
+
 # **************************************************************************** #
-# Shell packages
+# System packages
 #
 
 
@@ -132,19 +139,57 @@ function OracleJava
 
 
 
-function UbuntuTweak
+# Microsoft core fonts
+function MsCoreFonts
 {
-    # From: http://www.ubuntugeek.com/how-to-install-ubuntu-tweak-0-7-0-in-ubuntu-12-04-precise.html
-    # Or: http://ubuntu-tweak.com/downloads/
-    sudo add-apt-repository ppa:tualatrix/ppa &&
-    sudo apt-get update
-    sudo apt-get install ubuntu-tweak ||
-    errors="$errors\n[ERROR] ubuntu-tweak installation failed."
+    sudo apt-get install ttf-mscorefonts-installer
 }
 
 
 
 
+# Ubuntu Xbox controller driver
+function UbuntuXboxControllerDriver
+{
+    # From: http://www.omgubuntu.co.uk/2014/06/ubuntu-xbox-controller-support-xboxdrv-driver
+    sudo apt-add-repository ppa:rael-gc/ubuntu-xboxdrv &&
+    sudo apt-get update
+    sudo apt-get install ubuntu-xboxdrv ||
+    errors="$errors\n[ERROR] ubuntu-xboxdrv installation failed."
+
+    echo -e "\nYou may want to reboot your computer to ensure that the new driver takes precedence over the default one."
+    echo -e "You can adjust specific settings via the Joystick pane in the Software Centre."
+
+    echo -ne "\nPress any key to continue... "
+    read -s -n 1 confirm
+}
+
+
+
+
+
+
+
+
+# **************************************************************************** #
+# Customization
+#
+
+
+# Grub/Burg GUI customizer
+function GrubCustomizer
+{
+    # From: http://www.ubuntugeek.com/how-to-install-grub-customizer-in-ubuntu-13-04.html
+    sudo add-apt-repository ppa:danielrichter2007/grub-customizer &&
+    sudo apt-get update
+    sudo apt-get install grub-customizer ||
+    errors="$errors\n[ERROR] grub-customizer installation failed."
+}
+
+
+
+
+# Burg graphical bootloader
 function Burg
 {
     # From: http://linuxg.net/how-to-install-burg-on-ubuntu-13-04-12-10-12-04-and-linux-mint-15-14-13/
@@ -169,18 +214,7 @@ function Burg
 
 
 
-function GrubCustomizer
-{
-    # From: http://www.ubuntugeek.com/how-to-install-grub-customizer-in-ubuntu-13-04.html
-    sudo add-apt-repository ppa:danielrichter2007/grub-customizer &&
-    sudo apt-get update
-    sudo apt-get install grub-customizer ||
-    errors="$errors\n[ERROR] grub-customizer installation failed."
-}
-
-
-
-
+# Faience, Numix and Elegance Colors themes
 function Themes
 {
     # From: http://www.webupd8.org/2013/01/beautiful-mediterraneannight-gtk-36.html
@@ -202,60 +236,27 @@ function Themes
 
 
 
-function Aptik
+
+
+
+
+# **************************************************************************** #
+# Command line applications
+#
+
+
+# Disk space usage tool
+function ncdu
 {
-    # From: http://www.omgubuntu.co.uk/2014/01/reinstall-apps-on-ubuntu-fresh-install
-    sudo add-apt-repository ppa:teejee2008/ppa &&
-    sudo apt-get update
-    sudo apt-get install aptik ||
-    errors="$errors\n[ERROR] aptik installation failed."
+    # From: http://www.binarytides.com/check-disk-usage-linux-ncdu/
+    sudo apt-get install ncdu ||
+    errors="$errors\n[ERROR] ncdu installation failed."
 }
 
 
 
 
-function NautilusOpenTerminal
-{
-    # From: http://askubuntu.com/questions/207442/how-to-add-open-terminal-here-to-nautilus-context-menu
-    sudo apt-get install nautilus-open-terminal ||
-    errors="$errors\n[ERROR] nautilus-open-terminal installation failed."
-    nautilus -q
-}
-
-
-
-
-function NautilusImageTools
-{
-    # From: http://www.webupd8.org/2013/12/manipulate-images-in-nautilus-or-nemo.html
-    sudo add-apt-repository ppa:atareao/nautilus-extensions &&
-    sudo apt-get update
-    sudo apt-get install nautilus-image-tools ||
-    errors="$errors\n[ERROR] nautilus-image-tools installation failed."
-}
-
-
-
-
-function MsCoreFonts
-{
-    sudo apt-get install ttf-mscorefonts-installer
-}
-
-
-
-
-function Jupiter
-{
-    sudo add-apt-repository ppa:jolicloud-team/ppa &&
-    sudo apt-get update
-    sudo apt-get install jupiter ||
-    errors="$errors\n[ERROR] jupiter installation failed."
-}
-
-
-
-
+# TLP power management tool
 function TLP
 {
     # From: http://www.webupd8.org/2013/04/improve-power-usage-battery-life-in.html
@@ -270,6 +271,7 @@ function TLP
 
 
 
+# Nvidia Optimus GPU switching
 function Bumblebee
 {
     # From: http://www.webupd8.org/2013/04/bumblebee-321-released-with-ubuntu-1304.html
@@ -305,46 +307,7 @@ function Bumblebee
 
 
 
-function UbuntuXboxControllerDriver
-{
-    # From: http://www.omgubuntu.co.uk/2014/06/ubuntu-xbox-controller-support-xboxdrv-driver
-    sudo apt-add-repository ppa:rael-gc/ubuntu-xboxdrv &&
-    sudo apt-get update
-    sudo apt-get install ubuntu-xboxdrv ||
-    errors="$errors\n[ERROR] ubuntu-xboxdrv installation failed."
-
-    echo -e "\nYou may want to reboot your computer to ensure that the new driver takes precedence over the default one."
-    echo -e "You can adjust specific settings via the Joystick pane in the Software Centre."
-
-    echo -ne "\nPress any key to continue... "
-    read -s -n 1 confirm
-}
-
-
-
-
-function Guake
-{
-    sudo apt-get install guake ||
-    errors="$errors\n[ERROR] guake installation failed."
-}
-
-
-
-
-function FinalTerm
-{
-    # http://finalterm.org
-    # https://github.com/p-e-w/finalterm
-    sudo add-apt-repository ppa:finalterm/daily &&
-    sudo apt-get update
-    sudo apt-get install finalterm ||
-    errors="$errors\n[ERROR] finalterm installation failed."
-}
-
-
-
-
+# Siri-like assistant for the command line
 function Betty
 {
     # From: http://www.webupd8.org/2014/05/betty-is-like-siri-or-google-now-for.html
@@ -356,6 +319,7 @@ function Betty
 
 
 
+# Google Translate client for the command line
 function GoogleTranslateCLI
 {
     # From: http://www.webupd8.org/2014/03/google-translate-cli-lets-you-translate.html
@@ -370,6 +334,91 @@ function GoogleTranslateCLI
 
 
 
+# Selene media encoder/converter
+function SeleneMediaEncoder
+{
+    # From: http://www.webupd8.org/2014/06/convert-audio-video-files-with-selene.html
+    sudo apt-add-repository ppa:teejee2008/ppa &&
+    sudo apt-get update
+    sudo apt-get install selene ||
+    errors="$errors\n[ERROR] selene installation failed."
+}
+
+
+
+
+
+
+
+
+# **************************************************************************** #
+# GUI applications
+#
+
+
+# Automated package backup and restore
+function Aptik
+{
+    # From: http://www.omgubuntu.co.uk/2014/01/reinstall-apps-on-ubuntu-fresh-install
+    sudo add-apt-repository ppa:teejee2008/ppa &&
+    sudo apt-get update
+    sudo apt-get install aptik ||
+    errors="$errors\n[ERROR] aptik installation failed."
+}
+
+
+
+
+# Nautilus "Open in Terminal" plugin
+function NautilusOpenTerminal
+{
+    # From: http://askubuntu.com/questions/207442/how-to-add-open-terminal-here-to-nautilus-context-menu
+    sudo apt-get install nautilus-open-terminal ||
+    errors="$errors\n[ERROR] nautilus-open-terminal installation failed."
+    nautilus -q
+}
+
+
+
+
+# Nautilus Image Tools
+function NautilusImageTools
+{
+    # From: http://www.webupd8.org/2013/12/manipulate-images-in-nautilus-or-nemo.html
+    sudo add-apt-repository ppa:atareao/nautilus-extensions &&
+    sudo apt-get update
+    sudo apt-get install nautilus-image-tools ||
+    errors="$errors\n[ERROR] nautilus-image-tools installation failed."
+}
+
+
+
+
+# Guake Terminal
+function Guake
+{
+    sudo apt-get install guake ||
+    errors="$errors\n[ERROR] guake installation failed."
+}
+
+
+
+
+# Final Term terminal emulator
+function FinalTerm
+{
+    # http://finalterm.org
+    # https://github.com/p-e-w/finalterm
+    sudo add-apt-repository ppa:finalterm/daily &&
+    sudo apt-get update
+    sudo apt-get install finalterm ||
+    errors="$errors\n[ERROR] finalterm installation failed."
+}
+
+
+
+
+# Terminal notifications
 function TerminalNotifications
 {
     # From: http://www.webupd8.org/2013/01/notifies-terminal-commands-completed-undistract-me.html
@@ -387,28 +436,7 @@ function TerminalNotifications
 
 
 
-function ncdu
-{
-    # From: http://www.binarytides.com/check-disk-usage-linux-ncdu/
-    sudo apt-get install ncdu ||
-    errors="$errors\n[ERROR] ncdu installation failed."
-}
-
-
-
-
-function GnomePie
-{
-    # From: http://www.omgubuntu.co.uk/2015/04/gnome-pie-launcher-ubuntu-ppa
-    sudo add-apt-repository ppa:simonschneegans/testing -y &&
-    sudo apt-get update
-    sudo apt-get install gnome-pie ||
-    errors="$errors\n[ERROR] gnome-pie installation failed."
-}
-
-
-
-
+# California calendar
 function CaliforniaCalendar
 {
     # From: http://www.omgubuntu.co.uk/2014/05/california-calendar-app-hits-yorba-daily-ppa
@@ -421,6 +449,7 @@ function CaliforniaCalendar
 
 
 
+# Sublime Text 2 editor
 function SublimeText
 {
     # From: http://www.webupd8.org/2011/03/sublime-text-2-ubuntu-ppa.html
@@ -433,6 +462,7 @@ function SublimeText
 
 
 
+# Brackets web code editor
 function Brackets
 {
     # From: http://www.webupd8.org/2013/11/install-brackets-in-ubuntu-via-ppa-open.html
@@ -445,6 +475,7 @@ function Brackets
 
 
 
+# Gimp with plugins, filters and effects
 function Gimp
 {
     # From: http://www.webupd8.org/2013/02/gimp-284-released-install-it-in-ubuntu.html
@@ -463,6 +494,7 @@ function Gimp
 
 
 
+# Qbittorrent
 function Qbittorrent
 {
     # From: http://www.webupd8.org/2013/10/cross-platform-bittorrent-client.html
@@ -475,6 +507,7 @@ function Qbittorrent
 
 
 
+# VLC media player
 function VLCMediaPlayer
 {
     sudo apt-get install vlc ||
@@ -484,6 +517,7 @@ function VLCMediaPlayer
 
 
 
+# Simple Screen Recorder
 function SimpleScreenRecorder
 {
     # From: http://www.omgubuntu.co.uk/2013/12/simple-screen-recorder-linux
@@ -496,6 +530,7 @@ function SimpleScreenRecorder
 
 
 
+# Nuvola player for google play music
 function NuvolaPlayer
 {
     # From: http://www.omgubuntu.co.uk/2011/11/getting-started-with-google-music-on-ubuntu
@@ -508,6 +543,7 @@ function NuvolaPlayer
 
 
 
+# Rhythmbox Google Play Music Plugin
 function RythmboxGoogleMusic
 {
     # From: http://www.webupd8.org/2013/08/rhythmbox-google-play-music-plugin.html
@@ -527,6 +563,7 @@ function RythmboxGoogleMusic
 
 
 
+# Puddletag audio tag editor
 function Puddletag
 {
     # From: http://www.webupd8.org/2012/08/audio-tag-editor-puddletag-100-stable.html
@@ -534,18 +571,6 @@ function Puddletag
     sudo apt-get update
     sudo apt-get install puddletag ||
     errors="$errors\n[ERROR] puddletag installation failed."
-}
-
-
-
-
-function SeleneMediaEncoder
-{
-    # From: http://www.webupd8.org/2014/06/convert-audio-video-files-with-selene.html
-    sudo apt-add-repository ppa:teejee2008/ppa &&
-    sudo apt-get update
-    sudo apt-get install selene ||
-    errors="$errors\n[ERROR] selene installation failed."
 }
 
 
@@ -572,17 +597,38 @@ do
         "java" )
             OracleJava
         ;;
-        "utweak" )
-            UbuntuTweak
+        "msfonts" )
+            MsCoreFonts
         ;;
-        "burg" )
-            Burg
+        "xboxdrv" )
+            UbuntuXboxControllerDriver
         ;;
         "grubcst" )
             GrubCustomizer
         ;;
+        "burg" )
+            Burg
+        ;;
         "themes" )
             Themes
+        ;;
+        "ncdu" )
+            ncdu
+        ;;
+        "tlp" )
+            TLP
+        ;;
+        "bumblebee" )
+            Bumblebee
+        ;;
+        "betty" )
+            Betty
+        ;;
+        "trs" )
+            GoogleTranslateCLI
+        ;;
+        "selene" )
+            SeleneMediaEncoder
         ;;
         "aptik" )
             Aptik
@@ -593,41 +639,14 @@ do
         "imgtools" )
             NautilusImageTools
         ;;
-        "msfonts" )
-            MsCoreFonts
-        ;;
-        "jupiter" )
-            Jupiter
-        ;;
-        "tlp" )
-            TLP
-        ;;
-        "bumblebee" )
-            Bumblebee
-        ;;
-        "xboxdrv" )
-            UbuntuXboxControllerDriver
-        ;;
         "guake" )
             Guake
         ;;
         "fnlterm" )
             FinalTerm
         ;;
-        "betty" )
-            Betty
-        ;;
-        "trs" )
-            GoogleTranslateCLI
-        ;;
         "termnot" )
             TerminalNotifications
-        ;;
-        "ncdu" )
-            ncdu
-        ;;
-        "gpie" )
-            GnomePie
         ;;
         "california" )
             CaliforniaCalendar
@@ -658,9 +677,6 @@ do
         ;;
         "pudtag" )
             Puddletag
-        ;;
-        "selene" )
-            SeleneMediaEncoder
         ;;
         * )
             echo -e "\n[ERROR] Invalid parameter: $param"
