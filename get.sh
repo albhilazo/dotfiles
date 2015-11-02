@@ -11,6 +11,7 @@
 ##                                                                      ##
 ##    Packages:                                                         ##
 ##            basics      Basic command line packages                   ##
+##            ohmyzsh     Customizable Zsh shell interpreter            ##
 ##            utweak      Ubuntu tweak                                  ##
 ##            burg        Burg graphical bootloader                     ##
 ##            grubcst     Grub/Burg customizer                          ##
@@ -74,6 +75,26 @@ function Basics
     sudo apt-get install git ||
     errors="$errors[ERROR] git installation failed."
     # TODO: configure git
+}
+
+
+
+
+# Customizable Zsh shell interpreter
+function OhMyZsh
+{
+    # From: https://github.com/robbyrussell/oh-my-zsh
+    if type curl &> /dev/null
+    then
+        sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" ||
+        errors="$errors\n[ERROR] oh-my-zsh installation failed."
+    elif type wget &> /dev/null
+    then
+        sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" ||
+        errors="$errors\n[ERROR] oh-my-zsh installation failed."
+    else
+        errors="$errors\n[ERROR] 'curl' or 'wget' needed to install oh-my-zsh."
+    fi
 }
 
 
@@ -519,6 +540,9 @@ do
         ;;
         "basics" )
             Basics
+        ;;
+        "ohmyzsh" )
+            OhMyZsh
         ;;
         "utweak" )
             UbuntuTweak
