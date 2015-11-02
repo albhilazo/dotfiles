@@ -12,11 +12,12 @@
 ##    Packages:                                                         ##
 ##            basics      Basic command line packages                   ##
 ##            ohmyzsh     Customizable Zsh shell interpreter            ##
+##            extras      Restricted formats and codecs for Ubuntu      ##
+##            java        Oracle Java 9                                 ##
 ##            utweak      Ubuntu tweak                                  ##
 ##            burg        Burg graphical bootloader                     ##
 ##            grubcst     Grub/Burg customizer                          ##
 ##            themes      Faience, Numix and Elegance Colors themes     ##
-##            extras      Extra codecs and Java JDK                     ##
 ##            aptik       Automated package backup and restore          ##
 ##            nauterm     Nautilus "Open in Terminal" plugin            ##
 ##            imgtools    Nautilus Image Tools                          ##
@@ -107,6 +108,30 @@ function OhMyZsh
 
 
 
+# Copyrighted applications and codecs for Ubuntu
+function UbuntuExtras
+{
+    # From: https://help.ubuntu.com/community/RestrictedFormats
+    sudo apt-get install ubuntu-restricted-extras ||
+    errors="$errors\n[ERROR] ubuntu-restricted-extras installation failed."
+}
+
+
+
+
+# Oracle Java 9
+function OracleJava
+{
+    # From: http://www.webupd8.org/2015/02/install-oracle-java-9-in-ubuntu-linux.html
+    sudo add-apt-repository ppa:webupd8team/java &&
+    sudo apt-get update
+    sudo apt-get install oracle-java9-installer ||
+    errors="$errors\n[ERROR] oracle-java9 installation failed."
+}
+
+
+
+
 function UbuntuTweak
 {
     # From: http://www.ubuntugeek.com/how-to-install-ubuntu-tweak-0-7-0-in-ubuntu-12-04-precise.html
@@ -172,16 +197,6 @@ function Themes
     errors="$errors\n[ERROR] numix themes installation failed."
     sudo apt-get install gnome-shell-theme-elegance-colors ||
     errors="$errors\n[ERROR] elegance-colors theme installation failed."
-}
-
-
-
-
-function UbuntuExtrasJava
-{
-    sudo apt-get install ubuntu-restricted-extras
-    sudo apt-get install icedtea-7-plugin openjdk-7-jre
-    sudo apt-get install openjdk-7-jdk
 }
 
 
@@ -551,6 +566,12 @@ do
         "ohmyzsh" )
             OhMyZsh
         ;;
+        "extras" )
+            UbuntuExtras
+        ;;
+        "java" )
+            OracleJava
+        ;;
         "utweak" )
             UbuntuTweak
         ;;
@@ -562,9 +583,6 @@ do
         ;;
         "themes" )
             Themes
-        ;;
-        "extras" )
-            UbuntuExtrasJava
         ;;
         "aptik" )
             Aptik
