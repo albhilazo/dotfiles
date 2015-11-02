@@ -2,7 +2,7 @@
 
 ##########################################################################
 ##    @author     Albert Hilazo                                         ##
-##    @version    1.2.1                                                 ##
+##    @version    1.3.0                                                 ##
 ##                                                                      ##
 ##    Set of package installations                                      ##
 ##                                                                      ##
@@ -14,7 +14,6 @@
 ##            ohmyzsh     Customizable Zsh shell interpreter            ##
 ##            extras      Restricted formats and codecs for Ubuntu      ##
 ##            java        Oracle Java 9                                 ##
-##            utweak      Ubuntu tweak                                  ##
 ##            burg        Burg graphical bootloader                     ##
 ##            grubcst     Grub/Burg customizer                          ##
 ##            themes      Faience, Numix and Elegance Colors themes     ##
@@ -127,19 +126,6 @@ function OracleJava
     sudo apt-get update
     sudo apt-get install oracle-java9-installer ||
     errors="$errors\n[ERROR] oracle-java9 installation failed."
-}
-
-
-
-
-function UbuntuTweak
-{
-    # From: http://www.ubuntugeek.com/how-to-install-ubuntu-tweak-0-7-0-in-ubuntu-12-04-precise.html
-    # Or: http://ubuntu-tweak.com/downloads/
-    sudo add-apt-repository ppa:tualatrix/ppa &&
-    sudo apt-get update
-    sudo apt-get install ubuntu-tweak ||
-    errors="$errors\n[ERROR] ubuntu-tweak installation failed."
 }
 
 
@@ -571,9 +557,6 @@ do
         ;;
         "java" )
             OracleJava
-        ;;
-        "utweak" )
-            UbuntuTweak
         ;;
         "burg" )
             Burg
