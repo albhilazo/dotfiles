@@ -2,7 +2,7 @@
 
 ##########################################################################
 ##    @author     Albert Hilazo                                         ##
-##    @version    1.3.0                                                 ##
+##    @version    1.4.0                                                 ##
 ##                                                                      ##
 ##    Set of package installations                                      ##
 ##                                                                      ##
@@ -25,7 +25,6 @@
 ##            nauterm     Nautilus "Open in Terminal" plugin            ##
 ##            imgtools    Nautilus Image Tools                          ##
 ##            msfonts     Microsoft core fonts                          ##
-##            jupiter     Jupiter battery manager                       ##
 ##            tlp         TLP battery manager                           ##
 ##            bumblebee   Nvidia Optimus GPU switching                  ##
 ##            xboxdrv     Ubuntu Xbox controller driver                 ##
@@ -595,9 +594,6 @@ do
         ;;
         "msfonts" )
             MsCoreFonts
-        ;;
-        "jupiter" )
-            Jupiter
         ;;
         "tlp" )
             TLP
