@@ -48,11 +48,17 @@
 
 
 me=$(basename $0)    # script.sh
-errors='\n'
+errors='\n'          # Container for error messages
 
 
 
 
+# **************************************************************************** #
+# Shell packages
+#
+
+
+# Print the help text at the top of this script
 function showHelp
 {
     echo -e "\n$me help:"
