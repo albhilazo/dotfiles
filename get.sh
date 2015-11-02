@@ -259,17 +259,6 @@ function MsCoreFonts
 
 
 
-function Jupiter
-{
-    sudo add-apt-repository ppa:jolicloud-team/ppa &&
-    sudo apt-get update
-    sudo apt-get install jupiter ||
-    errors="$errors\n[ERROR] jupiter installation failed."
-}
-
-
-
-
 function TLP
 {
     # From: http://www.webupd8.org/2013/04/improve-power-usage-battery-life-in.html
