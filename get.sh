@@ -21,6 +21,8 @@
 ##            themes      Faience, Numix and Elegance Colors themes     ##
 ##                                                                      ##
 ##    Command line applications:                                        ##
+##                                                                      ##
+##    GUI applications:                                                 ##
 ##            aptik       Automated package backup and restore          ##
 ##            nauterm     Nautilus "Open in Terminal" plugin            ##
 ##            imgtools    Nautilus Image Tools                          ##
@@ -209,6 +211,17 @@ function Themes
 
 # **************************************************************************** #
 # Command line applications
+#
+
+
+
+
+
+
+
+
+# **************************************************************************** #
+# GUI applications
 #
 
 
