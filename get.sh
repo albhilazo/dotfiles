@@ -16,9 +16,11 @@
 ##            java        Oracle Java 9                                 ##
 ##                                                                      ##
 ##    Customization:                                                    ##
-##            burg        Burg graphical bootloader                     ##
 ##            grubcst     Grub/Burg customizer                          ##
+##            burg        Burg graphical bootloader                     ##
 ##            themes      Faience, Numix and Elegance Colors themes     ##
+##                                                                      ##
+##    Command line applications:                                        ##
 ##            aptik       Automated package backup and restore          ##
 ##            nauterm     Nautilus "Open in Terminal" plugin            ##
 ##            imgtools    Nautilus Image Tools                          ##
@@ -62,6 +64,10 @@ function showHelp
     sed '1,/\#\#\#\#/d;/\#\#\#\#/,$d;/ @/d;s/\#\#//g' $0
     exit 0
 }
+
+
+
+
 
 
 
@@ -133,6 +139,10 @@ function OracleJava
 
 
 
+
+
+
+
 # **************************************************************************** #
 # Customization
 #
@@ -191,6 +201,17 @@ function Themes
     sudo apt-get install gnome-shell-theme-elegance-colors ||
     errors="$errors\n[ERROR] elegance-colors theme installation failed."
 }
+
+
+
+
+
+
+
+
+# **************************************************************************** #
+# Command line applications
+#
 
 
 
@@ -565,11 +586,11 @@ do
         "java" )
             OracleJava
         ;;
-        "burg" )
-            Burg
-        ;;
         "grubcst" )
             GrubCustomizer
+        ;;
+        "burg" )
+            Burg
         ;;
         "themes" )
             Themes
