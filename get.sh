@@ -53,11 +53,6 @@ errors='\n'          # Container for error messages
 
 
 
-# **************************************************************************** #
-# Shell packages
-#
-
-
 # Print the help text at the top of this script
 function showHelp
 {
@@ -69,17 +64,22 @@ function showHelp
 
 
 
+# **************************************************************************** #
+# Shell packages
+#
+
+
 # Basic command line packages
 function Basics
 {
     sudo apt-get install vim ||
-    errors="$errors[ERROR] vim installation failed."
+    errors="$errors\n[ERROR] vim installation failed."
     sudo apt-get install gksu ||
-    errors="$errors[ERROR] gksu installation failed."
+    errors="$errors\n[ERROR] gksu installation failed."
     sudo apt-get install rar ||
-    errors="$errors[ERROR] rar installation failed."
+    errors="$errors\n[ERROR] rar installation failed."
     sudo apt-get install git ||
-    errors="$errors[ERROR] git installation failed."
+    errors="$errors\n[ERROR] git installation failed."
     # TODO: configure git
 }
 
@@ -101,6 +101,7 @@ function OhMyZsh
     else
         errors="$errors\n[ERROR] 'curl' or 'wget' needed to install oh-my-zsh."
     fi
+    # TODO: configure oh-my-zsh
 }
 
 
