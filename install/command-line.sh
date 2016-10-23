@@ -8,7 +8,7 @@
 ##            command-line.sh [ -h | --help ]
 ##
 ##    Packages:
-##            basics
+##            basics        Basic command line packages
 ##
 ##################################################
 

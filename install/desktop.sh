@@ -8,8 +8,8 @@
 ##            desktop.sh [ -h | --help ]
 ##
 ##    Packages:
-##            chrome
-##            sublime-text
+##            chrome        Google Chrome browser
+##            sublime-text  Sublime Text 3 editor
 ##
 ##################################################
 
