@@ -11,6 +11,7 @@
 ##            chrome        Google Chrome browser
 ##            sublime-text  Sublime Text 3 editor
 ##            guake         Guake dropdown terminal
+##            grub-cust     Grub customizer
 ##
 ##################################################
 
@@ -86,6 +87,15 @@ function installGuake
 }
 
 
+function installGrubCustomizer
+{
+  sudo add-apt-repository ppa:danielrichter2007/grub-customizer &&
+    sudo apt-get update &&
+    sudo apt-get install grub-customizer ||
+    errors="${errors}\n[ERROR] grub-customizer install failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -103,6 +113,9 @@ do
     ;;
     "guake" )
       installGuake
+    ;;
+    "grub-cust" )
+      installGrubCustomizer
     ;;
     * )
       echo -e "\n[ERROR] Invalid parameter: $param"
