@@ -9,10 +9,12 @@
 ##
 ##    Packages:
 ##            basics        Basic command line packages
+##            oh-my-zsh     Customizable Zsh shell framework
 ##
 ##################################################
 
 
+path=$(dirname $(readlink -f $0))  # Script path. Resolves symlinks
 me=$(basename $0)  # script.sh
 errors="\n"        # Container for error messages
 download_path='/tmp/dotfiles'
@@ -40,6 +42,18 @@ function installBasicPackages
 }
 
 
+function installOhMyZsh
+{
+  install_script_url='https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh'
+
+  sudo apt-get install zsh &&
+    chsh -s $(which zsh) &&
+    sh -c "$(wget ${install_script_url} -O -)" &&
+    cp -r ${path}/../oh-my-zsh/* ~/.oh-my-zsh/custom/ ||
+    errors="${errors}\n[ERROR] oh-my-zsh install failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -51,6 +65,9 @@ do
     ;;
     "basics" )
       installBasicPackages
+    ;;
+    "oh-my-zsh" )
+      installOhMyZsh
     ;;
     * )
       echo -e "\n[ERROR] Invalid parameter: $param"
