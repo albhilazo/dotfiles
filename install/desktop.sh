@@ -14,6 +14,7 @@
 ##################################################
 
 
+path=$(dirname $(readlink -f $0))  # Script path. Resolves symlinks
 me=$(basename $0)  # script.sh
 errors="\n"        # Container for error messages
 download_path='/tmp/dotfiles'
@@ -25,6 +26,24 @@ function showHelp
   echo -e "\ninstall/$me help:"
   sed '1,/\#\#\#\#/d;/\#\#\#\#/,$d;/ @/d;s/\#\#//g' $0
   exit 0
+}
+
+
+function checkCurlInstalled
+{
+  type curl &> /dev/null &&
+    return 0
+
+  echo -e "\nThis action requires \"curl\" to be installed."
+  echo -ne "Install it along with a set of basic packages? [Y/n]"
+  read -s -n 1 confirm
+
+  [ -n "$confirm" ] && [ "$confirm" != 'Y' ] && [ "$confirm" != 'y' ] &&
+    echo -e "\n" &&
+    return 1
+
+  echo -e "\n"
+  ${path}/command-line.sh basics
 }
 
 
@@ -41,6 +60,10 @@ function installGoogleChrome
 
 function installSublimeText
 {
+  checkCurlInstalled ||
+    errors="${errors}\n[ERROR] sublime-text install failed. Missing \"curl\"." &&
+    return 1
+
   updatecheck_url='http://www.sublimetext.com/updates/3/stable/updatecheck?platform=linux&arch=x64'
   latest_version_regex='(?<="latest_version": )[0-9]+'
   latest_version=$(curl -s "$updatecheck_url" | grep -Po "$latest_version_regex")
