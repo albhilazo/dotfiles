@@ -10,6 +10,7 @@
 ##    Packages:
 ##            chrome        Google Chrome browser
 ##            sublime-text  Sublime Text 3 editor
+##            guake         Guake dropdown terminal
 ##
 ##################################################
 
@@ -77,6 +78,14 @@ function installSublimeText
 }
 
 
+function installGuake
+{
+  sudo apt-get install guake &&
+    cp /usr/share/applications/guake.desktop ~/.config/autostart/ ||
+    errors="${errors}\n[ERROR] guake install failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -91,6 +100,9 @@ do
     ;;
     "sublime-text" )
       installSublimeText
+    ;;
+    "guake" )
+      installGuake
     ;;
     * )
       echo -e "\n[ERROR] Invalid parameter: $param"
