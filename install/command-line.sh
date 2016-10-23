@@ -33,6 +33,8 @@ function installBasicPackages
     errors="${errors}\n[ERROR] vim install failed."
   sudo apt-get install git ||
     errors="${errors}\n[ERROR] git install failed."
+  sudo apt-get install curl ||
+    errors="${errors}\n[ERROR] curl install failed."
   sudo apt-get install rar ||
     errors="${errors}\n[ERROR] rar install failed."
 }
