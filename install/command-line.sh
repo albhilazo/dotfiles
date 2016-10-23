@@ -10,6 +10,7 @@
 ##    Packages:
 ##            basics        Basic command line packages
 ##            oh-my-zsh     Customizable Zsh shell framework
+##            ncdu          Disk space usage tool
 ##
 ##################################################
 
@@ -54,6 +55,13 @@ function installOhMyZsh
 }
 
 
+function installNcdu
+{
+  sudo apt-get install ncdu ||
+    errors="${errors}\n[ERROR] ncdu install failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -68,6 +76,9 @@ do
     ;;
     "oh-my-zsh" )
       installOhMyZsh
+    ;;
+    "ncdu" )
+      installNcdu
     ;;
     * )
       echo -e "\n[ERROR] Invalid parameter: $param"
