@@ -9,6 +9,7 @@
 ##
 ##    Packages:
 ##            chrome
+##            sublime-text
 ##
 ##################################################
 
@@ -30,11 +31,26 @@ function showHelp
 function installGoogleChrome
 {
   latest_url='https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
-  deb_file="$download_path/google-chrome.deb"
+  deb_file="${download_path}/google-chrome.deb"
 
   wget --output-document "$deb_file" "$latest_url" &&
     sudo dpkg -i --force-depends "$deb_file"
   sudo apt-get install -f
+}
+
+
+function installSublimeText
+{
+  updatecheck_url='http://www.sublimetext.com/updates/3/stable/updatecheck?platform=linux&arch=x64'
+  latest_version_regex='(?<="latest_version": )[0-9]+'
+  latest_version=$(curl -s "$updatecheck_url" | grep -Po "$latest_version_regex")
+
+  latest_url="https://download.sublimetext.com/sublime-text_build-${latest_version}_amd64.deb"
+  deb_file="${download_path}/sublime-text-3.deb"
+
+  wget --output-document "$deb_file" "$latest_url" &&
+    sudo dpkg -i "$deb_file" ||
+    errors="${errors}\n[ERROR] sublime-text install failed."
 }
 
 
@@ -49,6 +65,9 @@ do
     ;;
     "chrome" )
       installGoogleChrome
+    ;;
+    "sublime-text" )
+      installSublimeText
     ;;
     * )
       echo -e "\n[ERROR] Invalid parameter: $param"
