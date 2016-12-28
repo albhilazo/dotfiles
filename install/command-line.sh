@@ -61,11 +61,15 @@ function installZsh
 
 function installOhMyZsh
 {
+  type zsh &> /dev/null
+  if [ $? -ne 0 ]; then
+    echo -e "\eOh My Zsh requires the Zsh shell to be installed first"
+    return 1
+  fi
+
   install_script_url='https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh'
 
-  sudo apt-get install zsh &&
-    chsh -s $(which zsh) &&
-    sh -c "$(wget ${install_script_url} -O -)" &&
+  sh -c "$(wget ${install_script_url} -O -)" &&
     cp -r ${path}/../oh-my-zsh/* ~/.oh-my-zsh/custom/ ||
     errors="${errors}\n[ERROR] oh-my-zsh install failed."
 }
