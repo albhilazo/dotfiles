@@ -13,6 +13,7 @@
 ##            guake         Guake dropdown terminal
 ##            grub-cust     Grub customizer
 ##            screenrec     Simple Screen Recorder
+##            gimp          Gimp with plugins, filters and effects
 ##
 ##################################################
 
@@ -106,6 +107,16 @@ function installSimpleScreenRecorder
 }
 
 
+function installGimp
+{
+  sudo add-apt-repository ppa:otto-kesselgulasch/gimp &&
+    sudo apt-get update &&
+    sudo apt-get install gimp &&
+    sudo apt-get install gimp-plugin-registry gimp-gmic ||  # Plugins, filters and effects
+    errors="${errors}\n[ERROR] gimp install failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -129,6 +140,9 @@ do
     ;;
     "screenrec" )
       installSimpleScreenRecorder
+    ;;
+    "gimp" )
+      installGimp
     ;;
     * )
       echo -e "\n[ERROR] Invalid parameter: $param"
