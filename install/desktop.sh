@@ -12,6 +12,7 @@
 ##            sublime-text  Sublime Text 3 editor
 ##            guake         Guake dropdown terminal
 ##            grub-cust     Grub customizer
+##            screenrec     Simple Screen Recorder
 ##
 ##################################################
 
@@ -96,6 +97,15 @@ function installGrubCustomizer
 }
 
 
+function installSimpleScreenRecorder
+{
+  sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder &&
+    sudo apt-get update &&
+    sudo apt-get install simplescreenrecorder ||
+    errors="${errors}\n[ERROR] simplescreenrecorder install failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -116,6 +126,9 @@ do
     ;;
     "grub-cust" )
       installGrubCustomizer
+    ;;
+    "screenrec" )
+      installSimpleScreenRecorder
     ;;
     * )
       echo -e "\n[ERROR] Invalid parameter: $param"
