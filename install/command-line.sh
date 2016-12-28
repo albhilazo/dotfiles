@@ -9,6 +9,7 @@
 ##
 ##    Packages:
 ##            basics        Basic command line packages
+##            zsh           Zsh shell
 ##            oh-my-zsh     Customizable Zsh shell framework
 ##            ncdu          Disk space usage tool
 ##
@@ -43,6 +44,20 @@ function installBasicPackages
 }
 
 
+function installZsh
+{
+  echo -ne "This will change the default shell to Zsh. Continue? [Y/n]"
+  read -s -n 1 confirm
+
+  [ -n "$confirm" ] && [ "$confirm" != 'Y' ] && [ "$confirm" != 'y' ] &&
+    echo -e "\n" &&
+    return 1
+
+  sudo apt-get install zsh &&
+    chsh -s $(which zsh)
+}
+
+
 function installOhMyZsh
 {
   install_script_url='https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh'
@@ -73,6 +88,9 @@ do
     ;;
     "basics" )
       installBasicPackages
+    ;;
+    "zsh" )
+      installZsh
     ;;
     "oh-my-zsh" )
       installOhMyZsh
