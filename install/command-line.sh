@@ -46,7 +46,7 @@ function installBasicPackages
 
 function installZsh
 {
-  echo -ne "This will change the default shell to Zsh. Continue? [Y/n]"
+  echo -ne "\nThis will change the default shell to Zsh. Continue? [Y/n]"
   read -s -n 1 confirm
 
   [ -n "$confirm" ] && [ "$confirm" != 'Y' ] && [ "$confirm" != 'y' ] &&
@@ -54,7 +54,8 @@ function installZsh
     return 1
 
   sudo apt-get install zsh &&
-    chsh -s $(which zsh)
+    chsh -s $(which zsh) ||
+    errors="${errors}\n[ERROR] zsh install failed."
 }
 
 
