@@ -1,0 +1,28 @@
+[user]
+        name =
+        email =
+[core]
+        excludesfile = ~/.gitignore
+        editor = vim
+[color]
+        ui = true
+[alias]
+        st = status
+        d  = diff
+        co = checkout
+        a  = add
+        aa = add --all
+        c  = commit
+        ac = !git add --all && git commit
+        ru = remote update
+        pr = pull --rebase
+        po = push -u origin HEAD
+        m  = merge --no-ff
+        b   = branch
+        bl  = branch -l
+        blm = branch --merged origin/master
+        au  = update-index --assume-unchanged
+        nau = update-index --no-assume-unchanged
+        lau = !git ls-files -v | grep "^h"
+        g   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        ga  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
