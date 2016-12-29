@@ -63,7 +63,7 @@ function installOhMyZsh
 {
   type zsh &> /dev/null
   if [ $? -ne 0 ]; then
-    echo -e "\eOh My Zsh requires the Zsh shell to be installed first"
+    echo -e "\nOh My Zsh requires the Zsh shell to be installed first"
     return 1
   fi
 
