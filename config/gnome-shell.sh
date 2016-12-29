@@ -4,8 +4,8 @@
 ##
 ##    Manage Gnome Shell configurations
 ##
-##    Syntax: grub.sh <packages>
-##            grub.sh [ -h | --help ]
+##    Syntax: gnome-shell.sh <packages>
+##            gnome-shell.sh [ -h | --help ]
 ##
 ##    Configs:
 ##            clockformat   Gnome clock format
