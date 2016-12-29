@@ -1,7 +1,3 @@
-# Shell Scripts
+# Dotfiles
 
-Collection of shell scripts for personal use.
-
-### Current scripts:
-+ get.sh     --  Install packages
-+ config.sh  --  Configures the command line, the Gnome Shell desktop and restores GRUB
+Configuration files and scripts to setup my linux environment.
