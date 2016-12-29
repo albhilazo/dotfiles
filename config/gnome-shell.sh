@@ -10,6 +10,7 @@
 ##    Configs:
 ##            clockformat   Gnome clock format
 ##            whitecursor   White mouse cursor
+##            windowbtns    Window buttons (min, max, close)
 ##
 ##################################################
 
@@ -46,6 +47,13 @@ function setWhiteMouseCursor
 }
 
 
+function setWindowButtons
+{
+  gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close' ||
+    errors="${errors}\n[ERROR] window buttons config failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -60,6 +68,9 @@ do
     ;;
     "whitecursor" )
       setWhiteMouseCursor
+    ;;
+    "windowbtns" )
+      setWindowButtons
     ;;
     * )
       errors="${errors}\n[ERROR] Invalid parameter: $param"
