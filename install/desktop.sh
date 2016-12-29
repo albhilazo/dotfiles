@@ -145,8 +145,7 @@ do
       installGimp
     ;;
     * )
-      echo -e "\n[ERROR] Invalid parameter: $param"
-      showHelp
+      errors="${errors}\n[ERROR] Invalid parameter: $param"
     ;;
   esac
 done
