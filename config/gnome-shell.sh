@@ -8,7 +8,8 @@
 ##            grub.sh [ -h | --help ]
 ##
 ##    Configs:
-##            clockformat   Set Gnome clock format
+##            clockformat   Gnome clock format
+##            whitecursor   White mouse cursor
 ##
 ##################################################
 
@@ -37,6 +38,14 @@ function setClockFormat
 }
 
 
+function setWhiteMouseCursor
+{
+  sudo apt-get install dmz-cursor-theme &&
+    gsettings set org.gnome.desktop.interface cursor-theme 'DMZ-White' ||
+    errors="${errors}\n[ERROR] white mouse cursor config failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -48,6 +57,9 @@ do
     ;;
     "clockformat" )
       setClockFormat
+    ;;
+    "whitecursor" )
+      setWhiteMouseCursor
     ;;
     * )
       errors="${errors}\n[ERROR] Invalid parameter: $param"
