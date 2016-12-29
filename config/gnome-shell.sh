@@ -11,6 +11,7 @@
 ##            clockformat   Gnome clock format
 ##            whitecursor   White mouse cursor
 ##            windowbtns    Window buttons (min, max, close)
+##            nautilus      Nautilus preferences
 ##
 ##################################################
 
@@ -54,6 +55,16 @@ function setWindowButtons
 }
 
 
+function setNautilus
+{
+  gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view' &&
+    gsettings set org.gnome.nautilus.preferences search-view 'list-view' &&
+    gsettings set org.gnome.nautilus.preferences sort-directories-first true &&
+    gsettings set org.gnome.nautilus.preferences show-hidden-files false ||
+    errors="${errors}\n[ERROR] Nautilus config failed."
+}
+
+
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -71,6 +82,9 @@ do
     ;;
     "windowbtns" )
       setWindowButtons
+    ;;
+    "nautilus" )
+      setNautilus
     ;;
     * )
       errors="${errors}\n[ERROR] Invalid parameter: $param"
