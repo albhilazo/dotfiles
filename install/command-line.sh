@@ -71,7 +71,7 @@ function installOhMyZsh
   install_script_url='https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh'
 
   sh -c "$(wget ${install_script_url} -O -)" &&
-    cp -r ${path}/../oh-my-zsh/* ~/.oh-my-zsh/custom/ ||
+    cp -r ${path}/../files/oh-my-zsh/* ~/.oh-my-zsh/custom/ ||
     errors="${errors}\n[ERROR] oh-my-zsh install failed."
 }
 
