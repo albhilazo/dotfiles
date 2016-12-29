@@ -39,7 +39,7 @@ function checkCurlInstalled
     return 0
 
   echo -e "\nThis action requires \"curl\" to be installed."
-  echo -ne "Install it along with a set of basic packages? [Y/n]"
+  echo -ne "Install it now? [Y/n] "
   read -s -n 1 confirm
 
   [ -n "$confirm" ] && [ "$confirm" != 'Y' ] && [ "$confirm" != 'y' ] &&
@@ -47,7 +47,12 @@ function checkCurlInstalled
     return 1
 
   echo -e "\n"
-  ${path}/command-line.sh basics
+
+  sudo apt-get install curl &&
+    return 0
+
+  errors="${errors}\n[ERROR] curl install failed."
+  return 1
 }
 
 
@@ -64,9 +69,11 @@ function installGoogleChrome
 
 function installSublimeText
 {
-  checkCurlInstalled ||
-    errors="${errors}\n[ERROR] sublime-text install failed. Missing \"curl\"." &&
+  if ! checkCurlInstalled
+  then
+    errors="${errors}\n[ERROR] sublime-text install failed. Missing \"curl\"."
     return 1
+  fi
 
   updatecheck_url='http://www.sublimetext.com/updates/3/stable/updatecheck?platform=linux&arch=x64'
   latest_version_regex='(?<="latest_version": )[0-9]+'
