@@ -75,6 +75,8 @@ function setUserGitconfig
 # Check params
 [ $# -eq 0 ] && showHelp
 
+mkdir -p "$download_path"
+
 for param in "$@"
 do
   case "$param" in
