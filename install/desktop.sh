@@ -9,6 +9,7 @@
 ##
 ##    Packages:
 ##            chrome        Google Chrome browser
+##            dropbox       Dropbox
 ##            sublime-text  Sublime Text 3 editor
 ##            guake         Guake dropdown terminal
 ##            grub-cust     Grub customizer
@@ -64,6 +65,17 @@ function installGoogleChrome
   wget --output-document "$deb_file" "$latest_url" &&
     sudo dpkg -i --force-depends "$deb_file"
   sudo apt-get install -f
+}
+
+
+function installDropbox
+{
+  installer_url='https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb'
+  deb_file="${download_path}/dropbox.deb"
+
+  wget --output-document "$deb_file" "$installer_url" &&
+    sudo dpkg -i "$deb_file" ||
+    errors="${errors}\n[ERROR] dropbox install failed."
 }
 
 
@@ -135,6 +147,9 @@ do
     ;;
     "chrome" )
       installGoogleChrome
+    ;;
+    "dropbox" )
+      installDropbox
     ;;
     "sublime-text" )
       installSublimeText
