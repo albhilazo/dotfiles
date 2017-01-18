@@ -18,9 +18,10 @@
         pr = pull --rebase
         po = push -u origin HEAD
         m  = merge --no-ff
-        b   = branch
-        bl  = branch -l
-        blm = branch --merged origin/master
+        b    = branch
+        bl   = !git branch --list | grep -Ev 'master|develop'
+        blm  = !git branch --merged origin/master | grep -Ev 'master|develop'
+        blmd = !git branch --merged origin/develop | grep -Ev 'master|develop'
         au  = update-index --assume-unchanged
         nau = update-index --no-assume-unchanged
         lau = !git ls-files -v | grep "^h"
