@@ -2,10 +2,10 @@
 
 ##################################################
 ##
-##    Manage Gnome Shell configurations
+##    Manage desktop configurations
 ##
-##    Syntax: gnome-shell.sh <packages>
-##            gnome-shell.sh [ -h | --help ]
+##    Syntax: desktop.sh <packages>
+##            desktop.sh [ -h | --help ]
 ##
 ##    Configs:
 ##            clockformat   Gnome clock format
