@@ -2,13 +2,15 @@
 
 ##################################################
 ##
-##    Manage Grub configurations
+##    Manage command line configurations
 ##
-##    Syntax: grub.sh <packages>
-##            grub.sh [ -h | --help ]
+##    Syntax: command-line.sh <configs>
+##            command-line.sh [ -h | --help ]
 ##
 ##    Configs:
-##            fixgrub       Repair/restore Grub2
+##            gitconfig    User gitconfig file
+##            oh-my-zsh    Custom shell theme and settings
+##            fixgrub      Repair/restore Grub2
 ##
 ##################################################
 
@@ -25,6 +27,57 @@ function showHelp
   echo -e "\nconfig/$me help:"
   sed '1,/\#\#\#\#/d;/\#\#\#\#/,$d;/ @/d;s/\#\#//g' $0
   exit 0
+}
+
+
+function checkGitInstalled
+{
+  type git &> /dev/null &&
+    return 0
+
+  echo -e "\nGit is not installed."
+  echo -ne "Install it now? [Y/n] "
+  read -s -n 1 confirm
+
+  [ -n "$confirm" ] && [ "$confirm" != 'Y' ] && [ "$confirm" != 'y' ] &&
+    echo -e "\n" &&
+    return 1
+
+  echo -e "\n"
+
+  sudo apt-get install git &&
+    return 0
+
+  errors="${errors}\n[ERROR] git install failed."
+  return 1
+}
+
+
+function setUserGitconfig
+{
+  if ! checkGitInstalled
+  then
+    errors="${errors}\n[ERROR] Git user config failed. Missing \"git\"."
+    return 1
+  fi
+
+  echo -e "\nInsert default Git identity:"
+  echo -ne "    name: "
+  read git_name
+  echo -ne "    email: "
+  read git_email
+
+  cp ${path}/../files/gitconfig ~/.gitconfig &&
+    git config --global user.name "${git_name}" &&
+    git config --global user.email "${git_email}" ||
+    errors="${errors}\n[ERROR] Git user config failed."
+}
+
+
+function setOhMyZshCustomSettings
+{
+  cp -r ${path}/../files/oh-my-zsh/* ~/.oh-my-zsh/custom/ ||
+    errors="${errors}\n[ERROR] Oh My Zsh custom settings failed."
 }
 
 
@@ -84,6 +137,12 @@ do
   case "$param" in
     "-h" | "--help" )
       showHelp
+    ;;
+    "gitconfig" )
+      setUserGitconfig
+    ;;
+    "oh-my-zsh" )
+      setOhMyZshCustomSettings
     ;;
     "fixgrub" )
       fixGrub2
