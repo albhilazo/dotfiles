@@ -4,7 +4,7 @@
 ##
 ##    Manage desktop configurations
 ##
-##    Syntax: desktop.sh <packages>
+##    Syntax: desktop.sh <configs>
 ##            desktop.sh [ -h | --help ]
 ##
 ##    Configs:
