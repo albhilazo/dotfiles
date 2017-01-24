@@ -10,7 +10,6 @@
 ##    Configs:
 ##            gitconfig    User gitconfig file
 ##            oh-my-zsh    Custom shell theme and settings
-##            fixgrub      Repair/restore Grub2
 ##
 ##################################################
 
@@ -81,52 +80,6 @@ function setOhMyZshCustomSettings
 }
 
 
-function fixGrub2
-{
-  # From: http://howtoubuntu.org/how-to-repair-restore-reinstall-grub-2-with-a-ubuntu-live-cd
-
-  echo -e "\nYou are now in the operating system containing the grub installation?"
-  echo -ne "(Answer NO if you are using a Live OS or another partition) [y/N]? "
-  read -s -n 1 notlive
-
-  if [ -z "$notlive" ] || [ "$notlive" != 'Y' ] && [ "$notlive" != 'y' ]
-  then
-    echo -e "\nThe script will mount the main partition and chroot to it."
-    echo -ne "Specify the partition containing the grub installation. Example: /dev/sda1\n\n\t/dev/"
-    read partition
-
-    sudo mount /dev/$partition /mnt
-
-    sudo mount --bind /dev /mnt/dev &&
-    sudo mount --bind /dev/pts /mnt/dev/pts &&
-    sudo mount --bind /proc /mnt/proc &&
-    sudo mount --bind /sys /mnt/sys
-
-    sudo chroot /mnt
-  fi
-
-  echo -ne "\nSpecify the bootloader's drive. Example: /dev/sda\n\n\t/dev/"
-  read drive
-
-  grub-install /dev/$drive
-  grub-install --recheck /dev/$drive
-  update-grub
-
-  if [ -z "$notlive" ] || [ "$notlive" != 'Y' ] && [ "$notlive" != 'y' ]
-  then
-    exit &&
-    sudo umount /mnt/sys &&
-    sudo umount /mnt/proc &&
-    sudo umount /mnt/dev/pts &&
-    sudo umount /mnt/dev &&
-    sudo umount /mnt
-  fi
-
-  echo -e "\nShut down and turn your computer back on, and you will be met with the default Grub2 screen."
-  echo -e "You may want to update grub or re-install burg however you like it."
-}
-
-
 # Check params
 [ $# -eq 0 ] && showHelp
 
@@ -143,9 +96,6 @@ do
     ;;
     "oh-my-zsh" )
       setOhMyZshCustomSettings
-    ;;
-    "fixgrub" )
-      fixGrub2
     ;;
     * )
       errors="${errors}\n[ERROR] Invalid parameter: $param"
