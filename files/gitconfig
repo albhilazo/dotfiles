@@ -9,7 +9,7 @@
 [alias]
         st = status
         d  = diff
-        dw = diff --color-words='[^[:space:]/]+|[/]+'
+        dw = diff --ignore-space-at-eol --color-words='[^[:space:]/]+|[/]+'
         co = checkout
         a  = add
         aa = add --all
