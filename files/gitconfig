@@ -9,7 +9,7 @@
 [alias]
         st = status
         d  = diff
-        dw = diff --ignore-space-at-eol --color-words='[^[:space:]/]+|[/]+'
+        dw = diff --ignore-space-at-eol --color-words='[^[:space:]/]+|[/]+'  # Separators after the pipe will be shown as added/removed too
         co = checkout
         a  = add
         aa = add --all
