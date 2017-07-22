@@ -4,7 +4,7 @@ path=$(dirname $(readlink -f $0))  # Script path. Resolves symlinks
 me=$(basename $0)  # script.sh
 errors="\n"        # Container for error messages
 download_path='/tmp/dotfiles'
-files_path="${path}/../files"
+files_path="${path}/files"
 
 
 function showHelp
@@ -13,17 +13,18 @@ function showHelp
 
     Install desktop applications
 
-    Usage: desktop.sh <packages>
-           desktop.sh [ -h | --help ]
+    Usage:
+        $me <packages>
+        $me [ -h | --help ]
 
     Packages:
-            chrome        Google Chrome browser
-            dropbox       Dropbox
-            sublime-text  Sublime Text 3 editor
-            guake         Guake dropdown terminal
-            grub-cust     Grub customizer
-            screenrec     Simple Screen Recorder
-            gimp          Gimp with plugins, filters and effects
+        chrome        Google Chrome browser
+        dropbox       Dropbox
+        sublime-text  Sublime Text 3 editor
+        guake         Guake dropdown terminal
+        grub-cust     Grub customizer
+        screenrec     Simple Screen Recorder
+        gimp          Gimp with plugins, filters and effects
 
 EndOfHelp
 
@@ -52,7 +53,7 @@ function checkCurlInstalled
 
   echo -e "\n"
 
-  sudo apt-get install curl &&
+  sudo apt-get install -y curl &&
     return 0
 
   logError "curl install failed"
@@ -105,7 +106,7 @@ function installSublimeText
 
 function installGuake
 {
-  sudo apt-get install guake ||
+  sudo apt-get install -y guake ||
     { logError "guake install failed"; return 1; }
 
   mkdir -p ~/.config/autostart &&
@@ -121,7 +122,7 @@ function installGrubCustomizer
 {
   sudo add-apt-repository ppa:danielrichter2007/grub-customizer &&
     sudo apt-get update &&
-    sudo apt-get install grub-customizer ||
+    sudo apt-get install -y grub-customizer ||
     logError "grub-customizer install failed"
 }
 
@@ -130,7 +131,7 @@ function installSimpleScreenRecorder
 {
   sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder &&
     sudo apt-get update &&
-    sudo apt-get install simplescreenrecorder ||
+    sudo apt-get install -y simplescreenrecorder ||
     logError "simplescreenrecorder install failed"
 }
 
@@ -139,8 +140,8 @@ function installGimp
 {
   sudo add-apt-repository ppa:otto-kesselgulasch/gimp &&
     sudo apt-get update &&
-    sudo apt-get install gimp &&
-    sudo apt-get install gimp-plugin-registry gimp-gmic ||  # Plugins, filters and effects
+    sudo apt-get install -y gimp &&
+    sudo apt-get install -y gimp-plugin-registry gimp-gmic ||  # Plugins, filters and effects
     logError "gimp install failed"
 }
 
