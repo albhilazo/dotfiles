@@ -1,37 +1,40 @@
 #!/bin/bash
 
-##################################################
-##
-##    Install desktop applications
-##
-##    Syntax: desktop.sh <packages>
-##            desktop.sh [ -h | --help ]
-##
-##    Packages:
-##            chrome        Google Chrome browser
-##            dropbox       Dropbox
-##            sublime-text  Sublime Text 3 editor
-##            guake         Guake dropdown terminal
-##            grub-cust     Grub customizer
-##            screenrec     Simple Screen Recorder
-##            gimp          Gimp with plugins, filters and effects
-##
-##################################################
-
-
 path=$(dirname $(readlink -f $0))  # Script path. Resolves symlinks
 me=$(basename $0)  # script.sh
 errors="\n"        # Container for error messages
 download_path='/tmp/dotfiles'
-files_path="${path}/../files"
+files_path="${path}/files"
 
 
-# Print the help text at the top of this script
 function showHelp
 {
-  echo -e "\ninstall/$me help:"
-  sed '1,/\#\#\#\#/d;/\#\#\#\#/,$d;/ @/d;s/\#\#//g' $0
+  cat <<EndOfHelp
+
+    Install desktop applications
+
+    Usage:
+        $me <packages>
+        $me [ -h | --help ]
+
+    Packages:
+        chrome        Google Chrome browser
+        dropbox       Dropbox
+        sublime-text  Sublime Text 3 editor
+        guake         Guake dropdown terminal
+        grub-cust     Grub customizer
+        screenrec     Simple Screen Recorder
+        gimp          Gimp with plugins, filters and effects
+
+EndOfHelp
+
   exit 0
+}
+
+
+function logError
+{
+  errors="${errors}\n[ERROR] $1"
 }
 
 
@@ -50,10 +53,10 @@ function checkCurlInstalled
 
   echo -e "\n"
 
-  sudo apt-get install curl &&
+  sudo apt-get install -y curl &&
     return 0
 
-  errors="${errors}\n[ERROR] curl install failed."
+  logError "curl install failed"
   return 1
 }
 
@@ -76,7 +79,7 @@ function installDropbox
 
   wget --output-document "$deb_file" "$installer_url" &&
     sudo dpkg -i "$deb_file" ||
-    errors="${errors}\n[ERROR] dropbox install failed."
+    logError "dropbox install failed"
 }
 
 
@@ -84,7 +87,7 @@ function installSublimeText
 {
   if ! checkCurlInstalled
   then
-    errors="${errors}\n[ERROR] sublime-text install failed. Missing \"curl\"."
+    logError "sublime-text install failed. Missing \"curl\""
     return 1
   fi
 
@@ -97,21 +100,21 @@ function installSublimeText
 
   wget --output-document "$deb_file" "$latest_url" &&
     sudo dpkg -i "$deb_file" ||
-    errors="${errors}\n[ERROR] sublime-text install failed."
+    logError "sublime-text install failed"
 }
 
 
 function installGuake
 {
-  sudo apt-get install guake ||
-    { errors="${errors}\n[ERROR] guake install failed."; return 1; }
+  sudo apt-get install -y guake ||
+    { logError "guake install failed"; return 1; }
 
   mkdir -p ~/.config/autostart &&
     cp /usr/share/applications/guake.desktop ~/.config/autostart/ ||
-    errors="${errors}\n[ERROR] guake autostart configuration failed."
+    logError "guake autostart configuration failed"
 
   cp -r ${files_path}/guake/* ~/.gconf/apps/guake/ ||
-    errors="${errors}\n[ERROR] guake custom configuration failed."
+    logError "guake custom configuration failed"
 }
 
 
@@ -119,8 +122,8 @@ function installGrubCustomizer
 {
   sudo add-apt-repository ppa:danielrichter2007/grub-customizer &&
     sudo apt-get update &&
-    sudo apt-get install grub-customizer ||
-    errors="${errors}\n[ERROR] grub-customizer install failed."
+    sudo apt-get install -y grub-customizer ||
+    logError "grub-customizer install failed"
 }
 
 
@@ -128,8 +131,8 @@ function installSimpleScreenRecorder
 {
   sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder &&
     sudo apt-get update &&
-    sudo apt-get install simplescreenrecorder ||
-    errors="${errors}\n[ERROR] simplescreenrecorder install failed."
+    sudo apt-get install -y simplescreenrecorder ||
+    logError "simplescreenrecorder install failed"
 }
 
 
@@ -137,9 +140,9 @@ function installGimp
 {
   sudo add-apt-repository ppa:otto-kesselgulasch/gimp &&
     sudo apt-get update &&
-    sudo apt-get install gimp &&
-    sudo apt-get install gimp-plugin-registry gimp-gmic ||  # Plugins, filters and effects
-    errors="${errors}\n[ERROR] gimp install failed."
+    sudo apt-get install -y gimp &&
+    sudo apt-get install -y gimp-plugin-registry gimp-gmic ||  # Plugins, filters and effects
+    logError "gimp install failed"
 }
 
 
@@ -176,7 +179,7 @@ do
       installGimp
     ;;
     * )
-      errors="${errors}\n[ERROR] Invalid parameter: $param"
+      logError "Invalid parameter: $param"
     ;;
   esac
 done
