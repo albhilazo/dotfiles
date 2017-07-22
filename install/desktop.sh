@@ -1,24 +1,5 @@
 #!/bin/bash
 
-##################################################
-##
-##    Install desktop applications
-##
-##    Syntax: desktop.sh <packages>
-##            desktop.sh [ -h | --help ]
-##
-##    Packages:
-##            chrome        Google Chrome browser
-##            dropbox       Dropbox
-##            sublime-text  Sublime Text 3 editor
-##            guake         Guake dropdown terminal
-##            grub-cust     Grub customizer
-##            screenrec     Simple Screen Recorder
-##            gimp          Gimp with plugins, filters and effects
-##
-##################################################
-
-
 path=$(dirname $(readlink -f $0))  # Script path. Resolves symlinks
 me=$(basename $0)  # script.sh
 errors="\n"        # Container for error messages
@@ -26,16 +7,30 @@ download_path='/tmp/dotfiles'
 files_path="${path}/../files"
 
 
-# Print the help text at the top of this script
 function showHelp
 {
-  echo -e "\ninstall/$me help:"
-  sed '1,/\#\#\#\#/d;/\#\#\#\#/,$d;/ @/d;s/\#\#//g' $0
+  cat <<EndOfHelp
+
+    Install desktop applications
+
+    Usage: desktop.sh <packages>
+           desktop.sh [ -h | --help ]
+
+    Packages:
+            chrome        Google Chrome browser
+            dropbox       Dropbox
+            sublime-text  Sublime Text 3 editor
+            guake         Guake dropdown terminal
+            grub-cust     Grub customizer
+            screenrec     Simple Screen Recorder
+            gimp          Gimp with plugins, filters and effects
+
+EndOfHelp
+
   exit 0
 }
 
 
-# Append error message
 function logError
 {
   errors="${errors}\n[ERROR] $1"
