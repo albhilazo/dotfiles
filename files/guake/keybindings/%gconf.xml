@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="show_hide" mtime="1500725593" type="string">
+		<stringvalue>Menu</stringvalue>
+	</entry>
+</gconf>

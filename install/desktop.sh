@@ -23,6 +23,7 @@ path=$(dirname $(readlink -f $0))  # Script path. Resolves symlinks
 me=$(basename $0)  # script.sh
 errors="\n"        # Container for error messages
 download_path='/tmp/dotfiles'
+files_path="${path}/../files"
 
 
 # Print the help text at the top of this script
@@ -102,10 +103,15 @@ function installSublimeText
 
 function installGuake
 {
-  sudo apt-get install guake &&
-    mkdir -p ~/.config/autostart &&
+  sudo apt-get install guake ||
+    { errors="${errors}\n[ERROR] guake install failed."; return 1; }
+
+  mkdir -p ~/.config/autostart &&
     cp /usr/share/applications/guake.desktop ~/.config/autostart/ ||
-    errors="${errors}\n[ERROR] guake install failed."
+    errors="${errors}\n[ERROR] guake autostart configuration failed."
+
+  cp -r ${files_path}/guake/* ~/.gconf/apps/guake/ ||
+    errors="${errors}\n[ERROR] guake custom configuration failed."
 }
 
 
