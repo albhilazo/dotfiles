@@ -64,6 +64,9 @@ function installOhMyZsh
   sudo apt-get install -y zsh &&
     sh -c "$(wget ${install_script_url} -O -)" ||
     logError "oh-my-zsh install failed"
+
+  cp -r ${files_path}/oh-my-zsh/* ~/.oh-my-zsh/custom/ ||
+    logError "oh-my-zsh custom configuration failed"
 }
 
 
