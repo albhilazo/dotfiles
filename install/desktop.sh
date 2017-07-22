@@ -103,6 +103,7 @@ function installSublimeText
 function installGuake
 {
   sudo apt-get install guake &&
+    mkdir -p ~/.config/autostart &&
     cp /usr/share/applications/guake.desktop ~/.config/autostart/ ||
     errors="${errors}\n[ERROR] guake install failed."
 }
