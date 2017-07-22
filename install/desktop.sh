@@ -35,6 +35,13 @@ function showHelp
 }
 
 
+# Append error message
+function logError
+{
+  errors="${errors}\n[ERROR] $1"
+}
+
+
 function checkCurlInstalled
 {
   type curl &> /dev/null &&
@@ -53,7 +60,7 @@ function checkCurlInstalled
   sudo apt-get install curl &&
     return 0
 
-  errors="${errors}\n[ERROR] curl install failed."
+  logError "curl install failed"
   return 1
 }
 
@@ -76,7 +83,7 @@ function installDropbox
 
   wget --output-document "$deb_file" "$installer_url" &&
     sudo dpkg -i "$deb_file" ||
-    errors="${errors}\n[ERROR] dropbox install failed."
+    logError "dropbox install failed"
 }
 
 
@@ -84,7 +91,7 @@ function installSublimeText
 {
   if ! checkCurlInstalled
   then
-    errors="${errors}\n[ERROR] sublime-text install failed. Missing \"curl\"."
+    logError "sublime-text install failed. Missing \"curl\""
     return 1
   fi
 
@@ -97,21 +104,21 @@ function installSublimeText
 
   wget --output-document "$deb_file" "$latest_url" &&
     sudo dpkg -i "$deb_file" ||
-    errors="${errors}\n[ERROR] sublime-text install failed."
+    logError "sublime-text install failed"
 }
 
 
 function installGuake
 {
   sudo apt-get install guake ||
-    { errors="${errors}\n[ERROR] guake install failed."; return 1; }
+    { logError "guake install failed"; return 1; }
 
   mkdir -p ~/.config/autostart &&
     cp /usr/share/applications/guake.desktop ~/.config/autostart/ ||
-    errors="${errors}\n[ERROR] guake autostart configuration failed."
+    logError "guake autostart configuration failed"
 
   cp -r ${files_path}/guake/* ~/.gconf/apps/guake/ ||
-    errors="${errors}\n[ERROR] guake custom configuration failed."
+    logError "guake custom configuration failed"
 }
 
 
@@ -120,7 +127,7 @@ function installGrubCustomizer
   sudo add-apt-repository ppa:danielrichter2007/grub-customizer &&
     sudo apt-get update &&
     sudo apt-get install grub-customizer ||
-    errors="${errors}\n[ERROR] grub-customizer install failed."
+    logError "grub-customizer install failed"
 }
 
 
@@ -129,7 +136,7 @@ function installSimpleScreenRecorder
   sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder &&
     sudo apt-get update &&
     sudo apt-get install simplescreenrecorder ||
-    errors="${errors}\n[ERROR] simplescreenrecorder install failed."
+    logError "simplescreenrecorder install failed"
 }
 
 
@@ -139,7 +146,7 @@ function installGimp
     sudo apt-get update &&
     sudo apt-get install gimp &&
     sudo apt-get install gimp-plugin-registry gimp-gmic ||  # Plugins, filters and effects
-    errors="${errors}\n[ERROR] gimp install failed."
+    logError "gimp install failed"
 }
 
 
@@ -176,7 +183,7 @@ do
       installGimp
     ;;
     * )
-      errors="${errors}\n[ERROR] Invalid parameter: $param"
+      logError "Invalid parameter: $param"
     ;;
   esac
 done
