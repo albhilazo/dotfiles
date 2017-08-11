@@ -20,6 +20,7 @@ function showHelp
     Packages:
         basics        Basic command line packages
         oh-my-zsh     Customizable Zsh shell framework
+        docker        Docker and Docker Compose
         ncdu          Disk space usage tool
 
 EndOfHelp
@@ -70,6 +71,26 @@ function installOhMyZsh
 }
 
 
+function installDocker
+{
+  install_script="${download_path}/get-docker.sh"
+
+  curl -fsSL get.docker.com -o "${install_script}" &&
+    sudo sh "${install_script}" &&
+    sudo usermod -aG docker "$(id --user --name)" ||
+    logError "docker install failed"
+
+  compose_latest_version=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
+  compose_release_url="https://github.com/docker/compose/releases/download/${compose_latest_version}/docker-compose-$(uname -s)-$(uname -m)"
+  compose_download_path="${download_path}/docker-compose"
+
+  curl -L "${compose_release_url}" > "${compose_download_path}" &&
+    sudo cp "${compose_download_path}" /usr/local/bin/docker-compose &&
+    sudo chmod +x /usr/local/bin/docker-compose ||
+    logError "docker-compose install failed"
+}
+
+
 function installNcdu
 {
   sudo apt-get install -y ncdu ||
@@ -93,6 +114,9 @@ do
     ;;
     "oh-my-zsh" )
       installOhMyZsh
+    ;;
+    "docker" )
+      installDocker
     ;;
     "ncdu" )
       installNcdu
