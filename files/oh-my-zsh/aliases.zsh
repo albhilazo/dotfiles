@@ -17,6 +17,11 @@ alias lt='ls -ltrh'
 alias g='git'
 
 
+# docker
+alias d='docker'
+alias dc='docker-compose'
+
+
 # other
 alias clr='clear'
 
