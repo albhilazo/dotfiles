@@ -20,6 +20,9 @@ alias g='git'
 # docker
 alias d='docker'
 alias dc='docker-compose'
+alias d-rm-exited='docker rm $(docker ps -a -f status=exited -q)'
+alias d-rmi-dangling='docker rmi $(docker images -f dangling=true -q)'
+alias d-volume-rm-dangling='docker volume rm $(docker volume ls -f dangling=true -q)'
 
 
 # other
