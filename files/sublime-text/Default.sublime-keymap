@@ -1,0 +1,12 @@
+[
+  { "keys": ["ctrl+alt+p"], "command": "prompt_select_workspace" },
+  { "keys": ["ctrl+7"], "command": "toggle_comment", "args": { "block": false } },
+  { "keys": ["ctrl+shift+7"], "command": "toggle_comment", "args": { "block": true } },
+  { "keys": ["ctrl+,"], "command": "append_semi_colon" },
+  { "keys": ["ctrl+shift+,"], "command": "append_semi_colon", "args": {"enter_new_line": "true"} },
+  { "keys": ["ctrl+tab"], "command": "focus_neighboring_group", "args": {"forward": true} },
+  { "keys": ["ctrl+shift+tab"], "command": "focus_neighboring_group", "args": {"forward": false} },
+  { "keys": ["ctrl+shift+pageup"], "command": "move_to_neighboring_group", "args": {"forward": true} },
+  { "keys": ["ctrl+shift+pagedown"], "command": "move_to_neighboring_group", "args": {"forward": false} },
+  { "keys": ["ctrl+f11"], "command": "toggle_side_bar" },
+]
