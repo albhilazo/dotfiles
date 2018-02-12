@@ -7,8 +7,10 @@
         pager = less
 [color]
         ui = auto
+        status = always
 [alias]
         st = status
+        wst = !watch --color git st
         d  = diff
         ds = diff --staged
         dw = diff --ignore-space-at-eol --color-words='[^[:space:]/>-]+|[/>-]+'  # Separators after the pipe will be shown as added/removed too
