@@ -29,6 +29,6 @@
         au  = update-index --assume-unchanged
         nau = update-index --no-assume-unchanged
         lau = !git ls-files -v | grep "^h"
-        g   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-        ga  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
-        wga = !watch --color git ga --color
+        g   = log --graph --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        ga  = !git g --all
+        wga = !watch --color git ga
