@@ -13,7 +13,7 @@
         wst = !watch --color git st
         d  = diff
         ds = diff --staged
-        dw = diff --ignore-space-at-eol --color-words='[^[:space:]/>-]+|[/>-]+'  # Separators after the pipe will be shown as added/removed too
+        dw = diff --ignore-space-at-eol --color-words='[^[:space:]/">-]+|[/">-]+'  # Separators after the pipe will be shown as added/removed too
         dws = !git dw --staged
         co = checkout
         a  = add
