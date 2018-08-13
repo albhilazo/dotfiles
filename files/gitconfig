@@ -18,8 +18,11 @@
         co = checkout
         a  = add
         aa = add --all
+        ap = add -p
         c  = commit
+        cm = commit -m
         ac = !git add --all && git commit
+        acm = !git add --all && git commit -m
         ru = remote update
         pr = pull --rebase
         po = push -u origin HEAD
