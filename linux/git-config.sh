@@ -72,7 +72,7 @@ function setUserGitconfig
     read email
   fi
 
-  cp ${files_path}/gitconfig ~/.gitconfig &&
+  cp ../configs/git/gitconfig ~/.gitconfig &&
     git config --global user.name "${name}" &&
     git config --global user.email "${email}" ||
     logError "Git user config failed"

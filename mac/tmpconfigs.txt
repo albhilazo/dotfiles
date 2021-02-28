@@ -1,0 +1,56 @@
+com.apple.systemuiserver
+    "NSStatusItem Visible com.apple.menuextra.bluetooth" = 1;
+    menuExtras =         (
+        "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
+
+
+
+"com.apple.systemuiserver" =     {
+-        "NSStatusItem Visible com.apple.menuextra.airplay" = 1;
+        menuExtras =         (
+-            "/System/Library/CoreServices/Menu Extras/Displays.menu"
+        );
+    };
+
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+killall SystemUIServer
+
+
+
+mkdir -p ~/Pictures/screenshots
+defaults write com.apple.screencapture location ~/Pictures/screenshots
+
+
+
+defaults write com.apple.dock orientation -string "left" &&
+  defaults write com.apple.dock mineffect -string "scale" &&
+  defaults write com.apple.dock autohide -int 1 &&
+  killall Dock
+
+com.apple.dock
+    "show-process-indicators" = 1;
+    "show-recents" = 0;
+    "expose-group-apps" = 1;
+    "mru-spaces" = 0; # automatically rearrange spaces based on most recent use
+
+
+
+
+"com.apple.controlstrip" =     {
+        FullCustomized =         (
+            "com.apple.system.group.brightness",
+            NSTouchBarItemIdentifierFlexibleSpace,
+            "com.apple.system.do-not-disturb",
+            NSTouchBarItemIdentifierFlexibleSpace,
+            "com.apple.system.group.media",
+            NSTouchBarItemIdentifierFlexibleSpace,
+            "com.apple.system.group.volume",
+            NSTouchBarItemIdentifierFlexibleSpace,
+            "com.apple.system.screen-lock"
+        );
+        MiniCustomized =         (
+            "com.apple.system.media-play-pause",
+            "com.apple.system.volume",
+            "com.apple.system.mute",
+            "com.apple.system.screen-lock"
+        );
