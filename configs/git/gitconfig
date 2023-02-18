@@ -8,6 +8,8 @@
 [color]
         ui = auto
         status = always
+[diff]
+        wsErrorHighlight = all
 [alias]
         st = status
         wst = !watch --color git st
@@ -27,6 +29,7 @@
         pr = pull --rebase
         po = push -u origin HEAD
         m  = merge --no-ff
+        undo = reset --soft HEAD~1
         b    = branch
         bl   = !git branch --list --color | grep -Ev 'master|develop'
         blm  = !git branch --merged origin/master --color | grep -Ev 'master|develop'
