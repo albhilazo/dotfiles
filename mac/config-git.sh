@@ -34,11 +34,9 @@ setGitIdentity ()
 {
   log "Setting Git identity"
 
-  echo -e "\nInsert default Git identity:"
-  echo -n "    name: "
-  read name
-  echo -n "    email: "
-  read email
+  echo -e "\nInsert default Git identity"
+  read -p "    name: " name
+  read -p "    email: " email
 
   git config --global user.name "${name}" &&
     git config --global user.email "${email}"
@@ -48,7 +46,26 @@ setGitIdentity ()
 setSecondaryGitIdentity ()
 {
   log "Setting secondary Git identity"
-  git config --global includeIf."gitdir:~/devel/repos/".path ".gitconfig-repos"
+
+  echo -e "\nInsert the path that will use a different identity"
+  read -p "    path: " gitdirPath
+
+  echo -e "\nInsert Git identity for this path"
+  read -p "    name: " name
+  read -p "    email: " email
+
+  mkdir -pv ${gitdirPath/#~/$HOME}
+  parsedPath=$(echo "${gitdirPath}" | sed "s/~//g" | sed "s/\//-/g")
+  gitconfigPath=~/.gitconfig${parsedPath}
+
+  cat > ${gitconfigPath} <<EndOfGitconfig
+[user]
+    name = ${name}
+    email = ${email}
+EndOfGitconfig
+
+  [[ "${gitdirPath}" != */ ]] && gitdirPath="${gitdirPath}/" # Ensure trailing slash
+  git config --global includeIf."gitdir:${gitdirPath}".path "${gitconfigPath}"
 }
 
 
@@ -61,6 +78,7 @@ do
     ;;
     * )
       log "Invalid parameter"
+      showHelp
       exit 1
     ;;
   esac

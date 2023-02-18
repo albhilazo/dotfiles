@@ -24,7 +24,7 @@ log ()
 
 installOhMyZsh ()
 {
-  install_script_url='https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh'
+  install_script_url='https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh'
 
   log "Installing OhMyZsh"
   sh -c "$(curl -fsSL ${install_script_url})" || return 1
