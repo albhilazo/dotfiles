@@ -54,3 +54,16 @@ com.apple.dock
             "com.apple.system.mute",
             "com.apple.system.screen-lock"
         );
+
+
+
+defaults -currentHost write com.apple.controlcenter Sound -integer 1
+defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool true
+
+
+
+# Comprobados, funcionan
+defaults -currentHost write com.apple.controlcenter Battery -integer 6 # show in menu bar but not control bar
+defaults -currentHost write com.apple.controlcenter BatteryShowPercentage -bool true
+defaults -currentHost write com.apple.controlcenter Sound -integer 19 # show in menu bar always
+defaults write com.apple.dock orientation -string "left"
